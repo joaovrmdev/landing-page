@@ -321,6 +321,7 @@
                 <h2>Preço do Ebook</h2>
                 <div class="card">
                     <h3>Oferta Especial!</h3>
+                    <div id="countdown"></div>
                     <p>Adquira agora nosso Ebook por um preço promocional.</p>
                     <div class="price-info">
                         <p class="old-price">Preço normal: R$ 39,99</p>
@@ -355,5 +356,33 @@
         </div>
     </footer>
     <script src="src/javascript/script.js"></script>
+    <script>
+        // Definindo a data de término do countdown (7 minutos a partir de agora)
+        const endDate = new Date();
+        endDate.setMinutes(endDate.getMinutes() + 7);
+
+        // Atualiza o countdown a cada segundo
+        const countdownElement = document.getElementById('countdown');
+
+        function updateCountdown() {
+            const now = new Date();
+            const timeDifference = endDate - now;
+
+            if (timeDifference <= 0) {
+                clearInterval(intervalId);
+                countdownElement.innerHTML = 'Tempo Esgotado';
+                return;
+            }
+
+            const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+            countdownElement.innerHTML = `Tempo restante: ${minutes} minutos e ${seconds} segundos`;
+        }
+
+        // Inicia o countdown inicial
+        updateCountdown();
+        const intervalId = setInterval(updateCountdown, 1000);
+    </script>
 </body>
 </html>
